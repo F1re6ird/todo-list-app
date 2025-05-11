@@ -1,9 +1,10 @@
 import React from 'react'
+import NotesPreview from './components/NotesPreview'
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-3xl'>hello</h1>
+      <NotesPreview />
     </div>
   )
 }
