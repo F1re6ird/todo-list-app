@@ -1,14 +1,24 @@
 import React from 'react'
-import NotesPreview from './components/NotesPreview'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import SharedLayout from './components/SharedLayout'
+import Notes from './pages/Notes'
+import TodoList from './pages/TodoList'
+import Settings from './pages/Settings'
 
 const App = () => {
   return (
-    <div className='flex flex-col items-center p-4 font-mono bg-[#efefef] min-h-svh gap-4'>
-      <NotesPreview title={'What I think about when I talk about running'} preview={'Running is like you are forcing yourself to be in diffuse thinking mode, do you know what diffuse thinking mode might be my friend. My name is Yekini Abdulwahab and you aee my latest friend reader.'} lastEdited={"March 23, 2025. 11:20 PM"} />
-      <NotesPreview title={'What I think about when I talk about running'} preview={'Running is like you are forcing yourself to be in diffuse thinking mode, do you know what diffuse thinking mode might be my friend. My name is Yekini Abdulwahab and you aee my latest friend reader.'} lastEdited={"March 23, 2025. 11:20 PM"} />
-      <NotesPreview title={'What I think about when I talk about running'} preview={'Running is like you are forcing yourself to be in diffuse thinking mode, do you know what diffuse thinking mode might be my friend. My name is Yekini Abdulwahab and you aee my latest friend reader.'} lastEdited={"March 23, 2025. 11:20 PM"} />
-      <NotesPreview title={'What I think about when I talk about running'} preview={'Running is like you are forcing yourself to be in diffuse thinking mode, do you know what diffuse thinking mode might be my friend. My name is Yekini Abdulwahab and you aee my latest friend reader.'} lastEdited={"March 23, 2025. 11:20 PM"} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SharedLayout />} >
+          <Route index element={<Notes />} />
+          <Route path='todos' element={<TodoList />} />
+          <Route path='settings' element={<Settings />} />
+        </Route>
+        <Route path='*' element={<h1>404</h1>} />
+
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -28,7 +28,7 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
     };
 
     // would change preview to content.
-    const [content, setContent] = useState(previewerForWeb(preview, 135))
+    const [content, setContent] = useState(previewerForWeb(preview, 350))
 
 
     const notePreviewRef = useRef(null)
@@ -46,7 +46,7 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
 
 
     return (
-        <div ref={notePreviewRef} className='w-full flex flex-col gap-4 p-2 bg-white rounded-lg'>
+        <div ref={notePreviewRef} className='w-full flex flex-col gap-4 p-2 bg-[#fafafa]'>
             <h1 className='text-2xl'>
                 {title}
             </h1>
