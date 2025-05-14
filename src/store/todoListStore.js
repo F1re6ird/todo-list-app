@@ -8,6 +8,66 @@ const useTodoListStore = create((set) => ({
       completed: false,
       isEditing: false,
     },
+    {
+      id: 100001,
+      todo: "Write in journal for 20 minutes",
+      completed: false,
+      isEditing: false,
+    },
+    {
+      id: 100002,
+      todo: "Refactor portfolio project code",
+      completed: true,
+      isEditing: false,
+    },
+    {
+      id: 100003,
+      todo: "Schedule doctor’s appointment",
+      completed: false,
+      isEditing: false,
+    },
+    {
+      id: 100004,
+      todo: "Study two chapters of AI textbook",
+      completed: false,
+      isEditing: true,
+    },
+    {
+      id: 100005,
+      todo: "Reply to pending emails",
+      completed: true,
+      isEditing: false,
+    },
+    {
+      id: 100006,
+      todo: "Go for a 30-minute run",
+      completed: false,
+      isEditing: false,
+    },
+    {
+      id: 100007,
+      todo: "Backup local files to cloud storage",
+      completed: false,
+      isEditing: false,
+    },
+    {
+      id: 100008,
+      todo: "Post quote on Instagram page",
+      completed: true,
+      isEditing: false,
+    },
+    {
+      id: 100009,
+      todo: "Brainstorm Substack article ideas",
+      completed: false,
+      isEditing: false,
+    },
+    {
+      id: 100010,
+      todo: "Practice SQL queries for 1 hour",
+      completed: false,
+      isEditing: false,
+    },
   ],
   addTodo: (todo) =>
     set((state) => ({

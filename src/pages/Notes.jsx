@@ -5,6 +5,10 @@ import NotesPreview from '../components/NotesPreview';
 import AddIcon from '../components/AddIcon';
 
 const Notes = () => {
+
+    const handleButtonClick = (e) => {
+        console.log(e.target.id)
+    }
     return (
         <section className='flex flex-col gap-4 px-4 mt-4 text-[1.25rem]'>
             <div className='border-2 flex items-center gap-2'>
@@ -22,7 +26,7 @@ const Notes = () => {
             <NotesPreview title={"Why Focus is a Superpower"} preview={"In a world full of distractions, the ability to focus deeply on one task is increasingly rare - and therefore incredibly valuable. Every time you choose to eliminate noise (notifications and multitasking, busywork), you give yourself a competitive edge. Focus is not just about discipline, it’s about clarityknowing what matters most, and ignoring everything else. Master your focus, and you master your direction."} lastEdited={"March 29, 2025"} />
             <NotesPreview title={"Why Focus is a Superpower"} preview={"In a world full of distractions, the ability to focus deeply on one task is increasingly rare - and therefore incredibly valuable. Every time you choose to eliminate noise (notifications and multitasking, busywork), you give yourself a competitive edge. Focus is not just about discipline, it’s about clarityknowing what matters most, and ignoring everything else. Master your focus, and you master your direction."} lastEdited={"March 29, 2025"} />
 
-            <AddIcon />
+            <AddIcon handleButtonClick={handleButtonClick} id={'notesAddIcon'} />
         </section>
     )
 }
