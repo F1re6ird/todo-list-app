@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { nanoid } from "nanoid";
 
 const useTodoListStore = create((set) => ({
   todos: [
@@ -30,7 +31,7 @@ const useTodoListStore = create((set) => ({
       id: 100004,
       todo: "Study two chapters of AI textbook",
       completed: false,
-      isEditing: true,
+      isEditing: false,
     },
     {
       id: 100005,
@@ -72,9 +73,12 @@ const useTodoListStore = create((set) => ({
   addTodo: (todo) =>
     set((state) => ({
       // maybe set all todos to completed before adding this...
-      todos: [...state.todos, { id: Date.now(), todo, completed: false }],
+      todos: [
+        ...state.todos,
+        { id: nanoid(), todo, completed: false, isEditing: false },
+      ],
     })),
-  toggleTodo: (id) =>
+  toggleCompleted: (id) =>
     set((state) => ({
       // maybe set all todos to completed before toggling
       todos: state.todos.map((todo) =>

@@ -1,18 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Todo from '../components/Todo'
 import AddIcon from '../components/AddIcon'
 import AddToTodo from '../components/AddToTodo'
 import useTodoListStore from '../store/todoListStore'
 
 const TodoList = () => {
-  const { todos } = useTodoListStore()
+  const [todo, setTodo] = useState()
+  const [isAddTodo, setIsAddTodo] = useState(false)
+  const { todos, addTodo } = useTodoListStore()
 
-  const handleButtonClick = (e) => {
-    console.log(e.target.id)
+  /* addTodo Ref */
+  const addToTodoRef = useRef(null)
+  const overlayRef = useRef(null)
+  const mainSectionRef = useRef(null)
+  const newTodoInputRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (addToTodoRef.current && !addToTodoRef.current.contains(event.target)) {
+        setIsAddTodo(false)
+      }
+
+    }
+
+    // Attach the event listener
+    document.addEventListener('mousedown', handleClickOutside)
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+  const handleAddClick = (e) => {
+    console.log(e)
+    setIsAddTodo(prev => prev = !prev)
+  }
+  const newTodo = (todo) => {
+    if (todo) {
+      addTodo(todo)
+      newTodoInputRef.current.value = ""
+      setTodo("")
+      setIsAddTodo(false)
+    }
+
   }
   return (
-    <>
-      <section className='flex flex-col gap-4 px-4 mt-4 text-[1.25rem]'>
+    <div className='min-h-screen relative pt-4'>
+      <section
+        ref={mainSectionRef}
+        className='flex flex-col gap-4 px-4 text-[1.25rem] pb-44'>
 
         {
           todos.map((todo) => (
@@ -21,10 +57,15 @@ const TodoList = () => {
         }
         {/*<Todo todo={'Read Recommended books again'} /> */}
       </section>
-      <AddIcon handleButtonClick={handleButtonClick} id={'todoAddIcon'} />
-      {/* <AddToTodo /> */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        ref={overlayRef}
+        className={`transition-all duration-300 h-[${mainSectionRef.current?.offsetHeight}] bg-black absolute inset-0 z-5 ${isAddTodo ? "opacity-20" : "pointer-events-none opacity-0"}`}
+      ></div>
+      <AddIcon handleAddClick={handleAddClick} id={'todoAddIcon'} addVisible={!isAddTodo} />
+      <AddToTodo newTodoInputRef={newTodoInputRef} visible={isAddTodo} todo={todo} setTodo={setTodo} ref={addToTodoRef} newTodo={newTodo} />
 
-    </>
+    </div>
 
   )
 }

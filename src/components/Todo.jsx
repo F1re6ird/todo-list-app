@@ -6,7 +6,7 @@ const Todo = ({ todo, id, completed, isEditing }) => {
 
     const [editedText, setEditedText] = useState(todo)
 
-    const { toggleTodo, toggleIsEditing, updateTodoText } = useTodoListStore()
+    const { toggleCompleted, toggleIsEditing, updateTodoText } = useTodoListStore()
 
     const handleBlur = () => {
         updateTodoText(id, editedText)
@@ -15,13 +15,13 @@ const Todo = ({ todo, id, completed, isEditing }) => {
 
 
     return (
-        <div className='flex border-2 border-[#1c1c1c] items-center gap-4 pl-4 bg-gray-100 rounded-2xl'>
+        <div className='flex items-center gap-4 pl-4 bg-[#fafafa] rounded-2xl'>
             <input
 
                 type="checkbox"
                 className='w-8 h-8'
                 checked={completed}
-                onChange={() => { toggleTodo(id) }}
+                onChange={() => { toggleCompleted(id) }}
             />
 
             {isEditing ?

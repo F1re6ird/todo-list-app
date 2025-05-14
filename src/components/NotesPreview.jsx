@@ -20,7 +20,7 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
         ) {
             let inputStringShadowArray = inputStringShadow.split(" ");
             inputStringShadowArray.pop();
-            
+
             inputStringShadow = inputStringShadowArray.join(" ");
             inputStringShadow += "..."
         }
@@ -28,7 +28,7 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
     };
 
     // would change preview to content.
-    const [content, setContent] = useState(previewerForWeb(preview, 350))
+    const [content, setContent] = useState(previewerForWeb(preview, window.innerWidth))
 
 
     const notePreviewRef = useRef(null)
@@ -44,9 +44,8 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
     })
 
 
-
     return (
-        <div ref={notePreviewRef} className='w-full flex flex-col gap-4 p-2 bg-[#fafafa]'>
+        <div ref={notePreviewRef} className='rounded-2xl w-full flex flex-col gap-4 p-2 bg-[#efefef]'>
             <h1 className='text-2xl'>
                 {title}
             </h1>
