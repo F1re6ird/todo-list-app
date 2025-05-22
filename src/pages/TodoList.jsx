@@ -3,14 +3,30 @@ import Todo from '../components/Todo'
 import AddIcon from '../components/AddIcon'
 import AddToTodo from '../components/AddToTodo'
 import useTodoListStore from '../store/todoListStore'
+import DeleteIcon from '../components/DeleteIcon'
+
 
 const TodoList = () => {
+
+  // const [todos, setTodos] = useState([])
+  const { todos, addTodo, updateTodoText, toggleIsEditing, deleteChecked, toggleCompleted } = useTodoListStore()
+
+
+  const showDeleteIcon = (todos) => {
+    return todos.some(todo => todo.completed === true);
+  }
+
+  const handleDeleteClick = () => {
+    deleteChecked()
+    setAnyChecked(false)
+  }
+
   const [todo, setTodo] = useState("")
   const [isAddTodo, setIsAddTodo] = useState(false)
   const [isNewTodo, setIsNewTodo] = useState(true)
   const [editingId, setEditingId] = useState(null)
+  const [anyChecked, setAnyChecked] = useState(showDeleteIcon(todos))
 
-  const { todos, addTodo, updateTodoText, toggleIsEditing } = useTodoListStore()
 
   const todoText = useRef("")
   const addToTodoRef = useRef(null)
@@ -18,6 +34,18 @@ const TodoList = () => {
   const mainSectionRef = useRef(null)
   const newTodoInputRef = useRef(null)
   const todoRefs = useRef([])
+
+  useEffect(() => {
+    setAnyChecked(showDeleteIcon(todos))
+  }, [todos])
+
+  const handleChange = (id) => {
+    toggleCompleted(id) // supposed to toggle
+    console.log(todos)
+    const newTodos = useTodoListStore.getState().todos
+    console.log(newTodos)
+    /* also bring function here */
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,6 +59,7 @@ const TodoList = () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [isNewTodo])
+
 
   const handleAddClick = () => {
     todoText.current = ""
@@ -57,6 +86,8 @@ const TodoList = () => {
     setEditingId(null)
   }
 
+
+
   return (
     <div className='min-h-screen relative pt-4'>
       <section
@@ -77,6 +108,7 @@ const TodoList = () => {
             setEditingId={setEditingId}
             todoTextRef={todoText}
             setTodo={setTodo}
+            handleChange={handleChange}
           />
         ))}
       </section>
@@ -100,6 +132,7 @@ const TodoList = () => {
         updateTodo={updateTodo}
         setTodo={setTodo}
       />
+      <DeleteIcon handleDeleteClick={handleDeleteClick} id={'todoDeleteIcon'} deleteVisible={(anyChecked && !isAddTodo)} />
     </div>
   )
 }

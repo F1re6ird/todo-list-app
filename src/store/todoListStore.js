@@ -55,6 +55,8 @@ const useTodoListStore = create((set) => ({
         todo.id === id ? { ...todo, todo: newText } : todo
       ),
     })),
+  deleteChecked: () =>
+    set((state) => ({ todos: state.todos.filter((todo) => !todo.completed) })),
 }));
 
 export default useTodoListStore;

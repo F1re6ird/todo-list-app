@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 
-const NotesPreview = ({ title, preview, lastEdited }) => {
+const NotesPreview = ({ title, noteContent, lastEdited, handleClick, id }) => {
 
     const previewerForWeb = (
         inputString,
@@ -11,7 +11,6 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
         context.font = font;
-
         let inputStringShadow = inputString.slice();
 
         while (
@@ -28,14 +27,14 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
     };
 
     // would change preview to content.
-    const [content, setContent] = useState(previewerForWeb(preview, window.innerWidth))
+    const [content, setContent] = useState(previewerForWeb(noteContent, window.innerWidth))
 
 
     const notePreviewRef = useRef(null)
     useEffect(() => {
         console.log(notePreviewRef.current.offsetWidth)
         const handleResize = () => {
-            setContent(previewerForWeb(preview, notePreviewRef.current.offsetWidth))
+            setContent(previewerForWeb(noteContent, notePreviewRef.current.offsetWidth))
         }
         window.addEventListener('resize', handleResize)
         return () => { window.removeEventListener('resize', handleResize) }
@@ -45,14 +44,14 @@ const NotesPreview = ({ title, preview, lastEdited }) => {
 
 
     return (
-        <div ref={notePreviewRef} className='rounded-2xl w-full flex flex-col gap-4 p-2 bg-[#efefef]'>
-            <h1 className='text-2xl'>
+        <div onClick={() => handleClick(title, noteContent, id)} ref={notePreviewRef} className='rounded-2xl w-full flex flex-col gap-4 p-2 bg-[#efefef] cursor-pointer'>
+            <h1 className='text-2xl cursor-pointer'>
                 {title}
             </h1>
-            <p className='opacity-60'>
+            <p className='opacity-60 cursor-pointer'>
                 {content}
             </p>
-            <p className='text-[0.8rem]'>
+            <p className='text-[0.8rem] cursor-pointer'>
                 {lastEdited}
             </p>
 
